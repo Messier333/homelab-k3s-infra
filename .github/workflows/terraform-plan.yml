@@ -8,7 +8,7 @@ on:
 
 jobs:
   plan:
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, x64, homelab]
 
     defaults:
       run:
