@@ -18,3 +18,23 @@ variable "vm_template_id" {
 variable "ssh_public_key" {
   type = string
 }
+
+variable "k3s_master_ip" {
+  type    = string
+  default = "192.168.1.151/24"
+}
+
+variable "k3s_worker_1_ip" {
+  type    = string
+  default = "192.168.1.152/24"
+}
+
+variable "gateway" {
+  type    = string
+  default = "192.168.1.1"
+}
+
+variable "dns_servers" {
+  type    = list(string)
+  default = ["192.168.1.1", "1.1.1.1"]
+}
