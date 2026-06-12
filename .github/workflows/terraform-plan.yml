@@ -30,3 +30,4 @@ jobs:
       - run: terraform fmt -check
       - run: terraform validate
       - run: terraform plan
+      - run: terraform apply
