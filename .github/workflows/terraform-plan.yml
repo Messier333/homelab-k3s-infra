@@ -20,6 +20,9 @@ jobs:
       TF_VAR_proxmox_node_name: ${{ secrets.PROXMOX_NODE_NAME }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       TF_VAR_lxc_template_file_id: ${{ secrets.LXC_TEMPLATE_FILE_ID }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_EC2_METADATA_DISABLED: "true"
 
     steps:
       - uses: actions/checkout@v4
