@@ -13,7 +13,3 @@ output "k3s_worker_1_name" {
 output "k3s_worker_1_ip" {
   value = local.k3s_worker_1_ip_plain
 }
-
-output "ansible_inventory_path" {
-  value = local_file.ansible_inventory.filename
-}
