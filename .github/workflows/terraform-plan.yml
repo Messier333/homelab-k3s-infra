@@ -8,7 +8,7 @@ on:
 
 jobs:
   plan:
-    runs-on: [self-hosted, linux, x64, homelab]
+    runs-on: [self-hosted, linux, x64]
 
     defaults:
       run:
@@ -30,3 +30,4 @@ jobs:
       - run: terraform fmt -check
       - run: terraform validate
       - run: terraform plan
+      - run: terraform apply
