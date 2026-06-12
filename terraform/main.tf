@@ -60,7 +60,7 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
   }
 
   memory {
-    dedicated = 8000
+    dedicated = 12000
     swap      = 0
   }
 
@@ -116,7 +116,7 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
   }
 
   memory {
-    dedicated = 8000
+    dedicated = 12000
     swap      = 0
   }
 
