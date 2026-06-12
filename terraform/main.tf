@@ -56,7 +56,7 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
   }
 
   cpu {
-    cores = 2
+    cores = 8
   }
 
   memory {
@@ -112,7 +112,7 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
   }
 
   cpu {
-    cores = 2
+    cores = 8
   }
 
   memory {
