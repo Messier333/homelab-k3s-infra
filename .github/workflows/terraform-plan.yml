@@ -18,8 +18,8 @@ jobs:
       TF_VAR_proxmox_endpoint: ${{ secrets.PROXMOX_ENDPOINT }}
       TF_VAR_proxmox_api_token: ${{ secrets.PROXMOX_API_TOKEN }}
       TF_VAR_proxmox_node_name: ${{ secrets.PROXMOX_NODE_NAME }}
-      TF_VAR_vm_template_id: ${{ secrets.VM_TEMPLATE_ID }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+      TF_VAR_lxc_template_file_id: ${{ secrets.LXC_TEMPLATE_FILE_ID }}
 
     steps:
       - uses: actions/checkout@v4
