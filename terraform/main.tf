@@ -35,7 +35,7 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
     hostname = "k3s-master"
 
     user_account {
-      keys     = [var.ssh_public_key]
+      keys = [var.ssh_public_key]
     }
 
     ip_config {
@@ -92,7 +92,7 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
     hostname = "k3s-worker-1"
 
     user_account {
-      keys     = [var.ssh_public_key]
+      keys = [var.ssh_public_key]
     }
 
     ip_config {
