@@ -76,7 +76,6 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
 
   features {
     nesting = true
-    keyctl  = true
   }
 }
 
@@ -133,7 +132,6 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
 
   features {
     nesting = true
-    keyctl  = true
   }
 }
 
