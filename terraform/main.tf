@@ -4,11 +4,6 @@ terraform {
       source  = "bpg/proxmox"
       version = "~> 0.109"
     }
-
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 2.5"
-    }
   }
 }
 
@@ -135,18 +130,3 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
   }
 }
 
-resource "local_file" "ansible_inventory" {
-  filename = "${path.module}/../ansible/inventory.ini"
-
-  content = <<-EOF
-[k3s_master]
-k3s-master ansible_host=${local.k3s_master_ip_plain} ansible_user=root
-
-[k3s_workers]
-k3s-worker-1 ansible_host=${local.k3s_worker_1_ip_plain} ansible_user=root
-
-[k3s_cluster:children]
-k3s_master
-k3s_workers
-EOF
-}
