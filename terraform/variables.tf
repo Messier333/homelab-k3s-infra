@@ -38,8 +38,3 @@ variable "dns_servers" {
 variable "lxc_template_file_id" {
   type = string
 }
-
-variable "container_password" {
-  type      = string
-  sensitive = true
-}

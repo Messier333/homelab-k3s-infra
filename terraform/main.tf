@@ -35,7 +35,6 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
     hostname = "k3s-master"
 
     user_account {
-      password = var.container_password
       keys     = [var.ssh_public_key]
     }
 
