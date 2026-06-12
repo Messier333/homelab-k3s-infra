@@ -11,10 +11,6 @@ variable "proxmox_node_name" {
   type = string
 }
 
-variable "vm_template_id" {
-  type = number
-}
-
 variable "ssh_public_key" {
   type = string
 }
@@ -37,4 +33,13 @@ variable "gateway" {
 variable "dns_servers" {
   type    = list(string)
   default = ["192.168.1.1", "1.1.1.1"]
+}
+
+variable "lxc_template_file_id" {
+  type = string
+}
+
+variable "container_password" {
+  type      = string
+  sensitive = true
 }

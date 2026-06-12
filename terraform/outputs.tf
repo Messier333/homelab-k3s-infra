@@ -1,5 +1,5 @@
 output "k3s_master_name" {
-  value = proxmox_virtual_environment_vm.k3s_master.name
+  value = proxmox_virtual_environment_container.k3s_master.initialization[0].hostname
 }
 
 output "k3s_master_ip" {
@@ -7,7 +7,7 @@ output "k3s_master_ip" {
 }
 
 output "k3s_worker_1_name" {
-  value = proxmox_virtual_environment_vm.k3s_worker_1.name
+  value = proxmox_virtual_environment_container.k3s_worker_1.initialization[0].hostname
 }
 
 output "k3s_worker_1_ip" {

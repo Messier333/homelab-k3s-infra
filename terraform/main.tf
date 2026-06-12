@@ -23,41 +23,19 @@ locals {
   k3s_worker_1_ip_plain = split("/", var.k3s_worker_1_ip)[0]
 }
 
-resource "proxmox_virtual_environment_vm" "k3s_master" {
-  name      = "k3s-master"
-  node_name = var.proxmox_node_name
-  vm_id     = 101
+resource "proxmox_virtual_environment_container" "k3s_master" {
+  description = "k3s master lxc"
+  node_name   = var.proxmox_node_name
+  vm_id       = 101
 
-  clone {
-    vm_id = var.vm_template_id
-    full  = true
-  }
-
-  agent {
-    enabled = true
-  }
-
-  cpu {
-    cores = 2
-  }
-
-  memory {
-    dedicated = 4096
-  }
-
-  disk {
-    datastore_id = "local-lvm"
-    interface    = "scsi0"
-    size         = 40
-  }
-
-  network_device {
-    bridge = "vmbr0"
-  }
+  started      = true
+  unprivileged = false
 
   initialization {
+    hostname = "k3s-master"
+
     user_account {
-      username = "ubuntu"
+      password = var.container_password
       keys     = [var.ssh_public_key]
     }
 
@@ -72,20 +50,10 @@ resource "proxmox_virtual_environment_vm" "k3s_master" {
       servers = var.dns_servers
     }
   }
-}
 
-resource "proxmox_virtual_environment_vm" "k3s_worker_1" {
-  name      = "k3s-worker-1"
-  node_name = var.proxmox_node_name
-  vm_id     = 102
-
-  clone {
-    vm_id = var.vm_template_id
-    full  = true
-  }
-
-  agent {
-    enabled = true
+  operating_system {
+    template_file_id = var.lxc_template_file_id
+    type             = "debian"
   }
 
   cpu {
@@ -93,22 +61,39 @@ resource "proxmox_virtual_environment_vm" "k3s_worker_1" {
   }
 
   memory {
-    dedicated = 4096
+    dedicated = 2048
+    swap      = 0
   }
 
   disk {
     datastore_id = "local-lvm"
-    interface    = "scsi0"
-    size         = 40
+    size         = 20
   }
 
-  network_device {
+  network_interface {
+    name   = "eth0"
     bridge = "vmbr0"
   }
 
+  features {
+    nesting = true
+    keyctl  = true
+  }
+}
+
+resource "proxmox_virtual_environment_container" "k3s_worker_1" {
+  description = "k3s worker lxc"
+  node_name   = var.proxmox_node_name
+  vm_id       = 102
+
+  started      = true
+  unprivileged = false
+
   initialization {
+    hostname = "k3s-worker-1"
+
     user_account {
-      username = "ubuntu"
+      password = var.container_password
       keys     = [var.ssh_public_key]
     }
 
@@ -123,6 +108,35 @@ resource "proxmox_virtual_environment_vm" "k3s_worker_1" {
       servers = var.dns_servers
     }
   }
+
+  operating_system {
+    template_file_id = var.lxc_template_file_id
+    type             = "debian"
+  }
+
+  cpu {
+    cores = 2
+  }
+
+  memory {
+    dedicated = 2048
+    swap      = 0
+  }
+
+  disk {
+    datastore_id = "local-lvm"
+    size         = 20
+  }
+
+  network_interface {
+    name   = "eth0"
+    bridge = "vmbr0"
+  }
+
+  features {
+    nesting = true
+    keyctl  = true
+  }
 }
 
 resource "local_file" "ansible_inventory" {
@@ -130,10 +144,10 @@ resource "local_file" "ansible_inventory" {
 
   content = <<-EOF
 [k3s_master]
-k3s-master ansible_host=${local.k3s_master_ip_plain} ansible_user=ubuntu
+k3s-master ansible_host=${local.k3s_master_ip_plain} ansible_user=root
 
 [k3s_workers]
-k3s-worker-1 ansible_host=${local.k3s_worker_1_ip_plain} ansible_user=ubuntu
+k3s-worker-1 ansible_host=${local.k3s_worker_1_ip_plain} ansible_user=root
 
 [k3s_cluster:children]
 k3s_master
