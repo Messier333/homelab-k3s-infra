@@ -4,6 +4,12 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/*.tfvars
 *.retry
+bootstrap/.terraform/
+bootstrap/.terraform.lock.hcl
+bootstrap/terraform.tfstate
+bootstrap/terraform.tfstate.backup
+bootstrap/*.tfvars
+*.retry
 
 ansible/inventory.ini
 ansible/.vault_pass
