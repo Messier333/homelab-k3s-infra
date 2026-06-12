@@ -29,7 +29,7 @@ resource "proxmox_virtual_environment_container" "k3s_master" {
   vm_id       = 101
 
   started      = true
-  unprivileged = false
+  unprivileged = true
 
   initialization {
     hostname = "k3s-master"
@@ -86,7 +86,7 @@ resource "proxmox_virtual_environment_container" "k3s_worker_1" {
   vm_id       = 102
 
   started      = true
-  unprivileged = false
+  unprivileged = true
 
   initialization {
     hostname = "k3s-worker-1"
